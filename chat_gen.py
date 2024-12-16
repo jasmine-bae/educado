@@ -3,6 +3,10 @@ from autogen import ConversableAgent
 import sys
 import os
 import math
+from pathlib import Path
+from autogen.coding import CodeBlock, LocalCommandLineCodeExecutor
+
+
 
 # Do not modify the signature of the "main" function.
 def main(user_query: str):
@@ -24,13 +28,37 @@ def main(user_query: str):
                                         human_input_mode="NEVER")
     # TODO
     # Create more agents here. 
-    manim_agent_prompt = "You are an expert in creating math animations using the python library, Manim Community v0.18.0.post0. Please generate a script in python according to user prompt. Focus on correctness of the python and manim code. Do not output anything but the python code. Take a deep breath and go."
+    manim_agent_prompt = """
+You have been given coding capability to solve create math visual animations creating math animations using the python library, Manim Community v0.18.0.post0. When using Tex, use MathTex instead at all times. 
+In the following cases, suggest python code (in a python coding block) or shell script (in a sh coding block) for the user to execute.
+    1. When you need to collect info, use the code to output the info you need, for example, browse or search the web, download/read a file, print the content of a webpage or a file, get the current date/time, check the operating system. After sufficient info is printed and the task is ready to be solved based on your language skill, you can solve the task by yourself.
+    2. When you need to perform some task with code, use the code to perform the task and output the result. Finish the task smartly.
+Solve the task step by step if you need to. If a plan is not provided, explain your plan first. Be clear which step uses code, and which step uses your language skill.
+When using code, you must indicate the script type in the code block. The user cannot provide any other feedback or perform any other action beyond executing the code you suggest. The user can't modify your code. So do not suggest incomplete code which requires users to modify. Don't use a code block if it's not intended to be executed by the user.
+If you want the user to save the code in a file before executing it, put # filename: <filename> inside the code block as the first line. Don't include multiple code blocks in one response. Do not ask users to copy and paste the result. Instead, use 'print' function for the output when relevant. Check the execution result returned by the user. Take a deep breath and go. I'm very proud of u.
+"""
+
     manim_agent = ConversableAgent("manim_agent", 
                                         system_message=manim_agent_prompt, 
                                         llm_config=llm_config,
-                                        max_consecutive_auto_reply=1,
+                                        code_execution_config=False,
+                                        max_consecutive_auto_reply=2,
                                         human_input_mode="NEVER")
 
+
+    work_dir = Path("coding")
+    work_dir.mkdir(exist_ok=True)
+
+    executor = LocalCommandLineCodeExecutor(work_dir=work_dir)
+
+    code_executor_agent = ConversableAgent(
+        name="code_executor_agent",
+        llm_config=False,
+        code_execution_config={
+            "executor": executor,
+        },
+        human_input_mode="NEVER",
+    )
 
 
     result = entrypoint_agent.initiate_chats([
@@ -48,13 +76,19 @@ def main(user_query: str):
             "summary_method":"last_msg"
         }
         ])
-    return result
+    
+    chat_result = code_executor_agent.initiate_chat(
+    manim_agent, message="Write python code using manim library to recreate the following request: " + str(result)
+    
+    )
+    return chat_result
+
 
 
     
 # DO NOT modify this code below.
 if __name__ == "__main__":
     
-    with open("textbook_text.txt", "r") as f:
+    with open("square_text.txt", "r") as f:
         prompt = f.read()
         main(prompt)

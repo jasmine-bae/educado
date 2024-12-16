@@ -1,0 +1,66 @@
+How to Square A Number
+To square a number: multiply it by itself
+Example: What is 3 squared?
+3 Squared     =     3 by 3 squares = 9 squares     = 3 × 3 = 9
+
+ 
+
+"Squared" is often written as a little 2 like this:
+
+4 squared is 16
+This says "4 Squared equals 16"
+(the little 2 says the number appears twice in multiplying)
+Squares From 02 to 62
+0 Squared =
+02    = 0 × 0 = 0
+1 Squared =
+12    = 1 × 1 = 1
+2 Squared =
+22    = 2 × 2 = 4
+3 Squared =
+32    = 3 × 3 = 9
+4 Squared =
+42    = 4 × 4 = 16
+5 Squared =
+52    = 5 × 5 = 25
+6 Squared =
+62    = 6 × 6 = 36
+
+ 
+The squares are also
+on the Multiplication Table:           squares in times table
+Negative Numbers
+
+We can also square negative numbers.
+Example: What happens when we square (−5) ?
+
+Answer:
+
+(−5) × (−5) = 25
+
+(because a negative times a negative gives a positive)
+
+That was interesting!
+
+When we square a negative number we get a positive result.
+
+Just the same as squaring a positive number:
+
+5x5 = -5x-5
+
+(For more detail read Squares and Square Roots in Algebra)
+Square Roots
+
+A square root goes the other way:
+
+square root of 9 is 3
+
+3 squared is 9, so a square root of 9 is 3
+
+ 
+
+A square root of a number is ...
+... a value that can be multiplied by itself to give the original number.
+
+A square root of 9 is ...
+... 3, because when 3 is multiplied by itself we get 9.
