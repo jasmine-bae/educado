@@ -3,3 +3,5 @@ media/
 __pycache__
 manim_venv/
 testing/
+tmp/
+gen_math_animation.py

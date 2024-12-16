@@ -1,5 +1,7 @@
-from typing import Dict, List
+from typing import Annotated, Dict, List
 from autogen import ConversableAgent
+from autogen import AssistantAgent
+from autogen.agentchat.contrib.retrieve_user_proxy_agent import RetrieveUserProxyAgent
 import sys
 import os
 import math
@@ -31,6 +33,37 @@ def main(user_query: str):
                                         max_consecutive_auto_reply=1,
                                         human_input_mode="NEVER")
 
+    # RAG TESTING - DOES NOT WORK    
+    # manim_docs_agent_prompt = "Assistant who has content retrieval power for the reference documentation of Manim Community Edition v0.18.1."
+    # manim_docs_agent = RetrieveUserProxyAgent(
+    #     name="Manim Docs Agent",
+    #     retrieve_config={
+    #         "task": "qa",
+    #         "docs_path": "./rag/reference/",
+    #         "system_message": manim_docs_agent_prompt,
+    #     },
+    #     human_input_mode="NEVER",
+    # )
+    
+    # def retrieve_content(
+    #     message: Annotated[
+    #         str,
+    #         "Refined message which keeps the original meaning and can be used to retrieve content for code generation and question answering.",
+    #     ],
+    #     n_results: Annotated[int, "number of results"] = 3,
+    # ) -> str:
+    #     manim_docs_agent.n_results = n_results  # Set the number of results to be retrieved.
+    #     _context = {"problem": message, "n_results": n_results}
+    #     ret_msg = manim_docs_agent.message_generator(manim_docs_agent, None, _context)
+    #     return ret_msg or message
+    
+    # for caller in [textbook_agent, manim_agent]:
+    #     d_retrieve_content = caller.register_for_llm(
+    #     description="retrieve content for animation suggestions and code generation.", api_style="function"
+    # )(retrieve_content)
+
+    # for executor in [entrypoint_agent, textbook_agent, manim_agent]:
+    #     executor.register_for_execution()(d_retrieve_content)
 
 
     result = entrypoint_agent.initiate_chats([
@@ -54,7 +87,7 @@ def main(user_query: str):
     
 # DO NOT modify this code below.
 if __name__ == "__main__":
-    
+
     with open("textbook_text.txt", "r") as f:
         prompt = f.read()
         main(prompt)
