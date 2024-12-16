@@ -9,22 +9,22 @@ def main(user_query: str):
 
     entrypoint_agent_system_message = "Please take in any text or code in exactly and pass it to the next agent directly. Do not summarize any text or code yourself. Don't add any additional commentary."
     # example LLM config for the entrypoint agent
-    llm_config = {"config_list": [{"model": "gpt-4o-mini", "api_key": os.environ.get("OPENAI_API_KEY")}]}
+    llm_config = {"config_list": [{"model": "gpt-4o", "api_key": os.environ.get("OPENAI_API_KEY")}]}
     # the main entrypoint/supervisor agent
     entrypoint_agent = ConversableAgent("entrypoint_agent", 
                                         system_message=entrypoint_agent_system_message, 
                                         llm_config=llm_config)
 
 
-    textbook_agent_prompt = "Please take in this text from a math textbook and create a description around any visual concepts that should be represented as visualization/animation in Manim Community v0.18.0.post0. The description must only contain info about the visuals and is constrained to what is available tools/classes in the manim library,"
+    textbook_agent_prompt = "Please take in this text from a math textbook and create a description around any visual concepts that should be represented as visualization/animation in Manim Community v0.18.0.post0. The description must only contain info about the visuals and is constrained available tools/classes in the manim library,"
     textbook_agent = ConversableAgent("textbook_agent", 
                                         system_message=textbook_agent_prompt, 
                                         llm_config=llm_config,
-                                        max_consecutive_auto_reply=1,
+                                        max_consecutive_auto_reply=0,
                                         human_input_mode="NEVER")
     # TODO
     # Create more agents here. 
-    manim_agent_prompt = "You are an expert in creating math animations using the python library, Manim. Please generate a script in python according to user prompt."
+    manim_agent_prompt = "You are an expert in creating math animations using the python library, Manim Community v0.18.0.post0. Please generate a script in python according to user prompt. Focus on correctness of the python and manim code. Do not output anything but the python code. Take a deep breath and go."
     manim_agent = ConversableAgent("manim_agent", 
                                         system_message=manim_agent_prompt, 
                                         llm_config=llm_config,
@@ -54,6 +54,7 @@ def main(user_query: str):
     
 # DO NOT modify this code below.
 if __name__ == "__main__":
+    
     with open("textbook_text.txt", "r") as f:
         prompt = f.read()
         main(prompt)
