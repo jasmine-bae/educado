@@ -9,7 +9,7 @@ def main(user_query: str):
 
     entrypoint_agent_system_message = "Please take in any text or code in exactly and pass it to the next agent directly. Do not summarize any text or code yourself. Don't add any additional commentary."
     # example LLM config for the entrypoint agent
-    llm_config = {"config_list": [{"model": "gpt-4o-mini", "api_key": os.environ.get("OPENAI_API_KEY")}]}
+    llm_config = {"config_list": [{"model": "gpt-4o", "api_key": os.environ.get("OPENAI_API_KEY")}]}
     # the main entrypoint/supervisor agent
     entrypoint_agent = ConversableAgent("entrypoint_agent", 
                                         system_message=entrypoint_agent_system_message, 
@@ -48,7 +48,7 @@ def main(user_query: str):
             "summary_method":"last_msg"
         }
         ])
-    return result[2].summary
+    return result
 
 
     
