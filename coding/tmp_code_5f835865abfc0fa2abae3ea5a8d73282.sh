@@ -1,0 +1,1 @@
+manim -pql squaring_and_square_roots_animation.py SquareAndSquareRoots
