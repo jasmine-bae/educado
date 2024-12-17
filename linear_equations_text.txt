@@ -1,0 +1,27 @@
+A linear equation is an equation for a straight line
+These are all linear equations:
+yes 	  	y = 2x + 1
+yes 	  	5x = 6 + 3y
+yes 	  	y/2 = 3 − x
+
+Let us look more closely at one example:
+Example: y = 2x + 1 is a linear equation:
+
+line on a graph
+
+The graph of y = 2x+1 is a straight line
+
+ 
+
+    When x increases, y increases twice as fast, so we need 2x
+    When x is 0, y is already 1. So +1 is also needed
+    And so: y = 2x + 1
+
+Here are some example values:
+x 	y = 2x + 1
+-1 	y = 2 × (-1) + 1 = -1
+0 	y = 2 × 0 + 1 = 1
+1 	y = 2 × 1 + 1 = 3
+2 	y = 2 × 2 + 1 = 5
+
+Check for yourself that those points are part of the line above!
