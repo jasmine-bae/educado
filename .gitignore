@@ -9,3 +9,4 @@ coding/
 .cache/
 website/_site/
 website/src/assets/tmp_code_*
+website/node_modules/

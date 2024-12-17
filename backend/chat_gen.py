@@ -99,6 +99,7 @@ def main(user_query: str):
         MANIM_CODING_AGENT_NAME,
         system_message=manim_coding_agent_prompt,
         llm_config=claude_llm_config,
+        # llm_config = llm_config,
         code_execution_config=False,
         max_consecutive_auto_reply=3,
         human_input_mode="NEVER",
