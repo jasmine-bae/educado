@@ -1,6 +1,8 @@
 from typing import Union
 from fastapi import FastAPI, File, UploadFile,  Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import chat_gen
 from fastapi.responses import JSONResponse
 import logging
@@ -19,15 +21,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
+# Put APIs first before the html serving
 
 @app.post("/new_anim")
 async def new_animation(request: Request, file: UploadFile):
@@ -44,4 +38,18 @@ async def new_animation(request: Request, file: UploadFile):
     return {"filename" : file.filename}
     # return JSONResponse(content={"status": "success", "message": "File processed"})
     # return {"message": "Processing started"}
+
+
+# Mount the entire static site directory
+app.mount("/", StaticFiles(directory="../website/_site/", html=True), name="static")
+
+# Optional: Explicitly handle the root path to serve index.html
+@app.get("/")
+async def read_root():
+    return FileResponse('../website/_site/index.html')
+
+
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Union[str, None] = None):
+#     return {"item_id": item_id, "q": q}
 
