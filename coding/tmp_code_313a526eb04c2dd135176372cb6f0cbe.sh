@@ -1,1 +1,0 @@
-manim -pql similar_triangles.py SimilarTriangles
