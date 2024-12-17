@@ -60,16 +60,20 @@ def main(user_query: str):
         ]
     }
     
-    # Claude
-    claude_llm_config = {
-        "config_list": [
-            {
-                "model": "claude-3-5-sonnet-20241022",
-                "api_key": os.environ.get("CLAUDE_API_KEY"),
-                "api_type": "anthropic",
-            }
-        ]
-    }
+    # Claude - only uses claude if the claude api key is set in env
+    claude_api_key = os.environ.get("CLAUDE_API_KEY")
+    if claude_llm_config == "":
+        claude_llm_config = llm_config
+    else:
+        claude_llm_config = {
+            "config_list": [
+                {
+                    "model": "claude-3-5-sonnet-20241022",
+                    "api_key": claude_llm_config,
+                    "api_type": "anthropic",
+                }
+            ]
+        }
     
     # the initializer agent
     init_agent_system_message = prompts.get_init_agent_prompt()
@@ -94,8 +98,7 @@ def main(user_query: str):
     manim_coding_agent = ConversableAgent(
         MANIM_CODING_AGENT_NAME,
         system_message=manim_coding_agent_prompt,
-        # llm_config=claude_llm_config,
-        llm_config = llm_config,
+        llm_config=claude_llm_config,
         code_execution_config=False,
         max_consecutive_auto_reply=3,
         human_input_mode="NEVER",
@@ -106,8 +109,7 @@ def main(user_query: str):
     manim_coding_review_agent = ConversableAgent(
         MANIM_CODING_REVIEW_AGENT_NAME,
         system_message=manim_coding_review_agent_prompt,
-        # llm_config=claude_llm_config,
-        llm_config = llm_config,
+        llm_config=claude_llm_config,
         code_execution_config=False,
         max_consecutive_auto_reply=3,
         human_input_mode="NEVER",

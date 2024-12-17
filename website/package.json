@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "npx @11ty/eleventy --serve",
+    "start": "npx @11t/eleventy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

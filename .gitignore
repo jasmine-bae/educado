@@ -7,3 +7,5 @@ tmp/
 gen_math_animation.py
 coding/
 .cache/
+website/_site/
+website/src/assets/tmp_code_*
