@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
         }
         
 
-        document.getElementById("animation_video").src = "/assets/media/videos/animation/480p15/Animation.mp4";
+        document.getElementById("animation_video").src = "/temp/media/videos/animation/480p15/Animation.mp4";
         document.getElementById("video_player").style.display = "block";
 
         document.getElementById("reset_from_button").style.display = "block";

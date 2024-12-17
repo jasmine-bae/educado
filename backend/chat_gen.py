@@ -1,3 +1,4 @@
+import shutil
 from typing import *
 from autogen import *
 from autogen import Agent
@@ -44,9 +45,9 @@ def state_transition(
     elif last_speaker is agents[CODE_EXEC_AGENT_NAME]:
         # Logic to go back to coding step if execution fails for some reason
         # Will probably need a max_retries so it doesnt run infinitely
-        # if messages[-1]["content"] == "exitcode: 1":
+        if messages[-1]["content"] == "exitcode: 1":
         #     # runs code -> execution failed --> go back to code generation agent
-        #     return agents[MANIM_CODING_AGENT_NAME]
+            return agents[MANIM_CODING_AGENT_NAME]
         # else:
         #     # runs code -> execution success -> DONE
         return None
@@ -100,9 +101,8 @@ def main(user_query: str):
         MANIM_CODING_AGENT_NAME,
         system_message=manim_coding_agent_prompt,
         llm_config=claude_llm_config,
-        # llm_config = llm_config,
         code_execution_config=False,
-        max_consecutive_auto_reply=3,
+        # max_consecutive_auto_reply=3,
         human_input_mode="NEVER",
     )
     agents[MANIM_CODING_AGENT_NAME] = manim_coding_agent
@@ -113,7 +113,7 @@ def main(user_query: str):
         system_message=manim_coding_review_agent_prompt,
         llm_config=claude_llm_config,
         code_execution_config=False,
-        max_consecutive_auto_reply=3,
+        # max_consecutive_auto_reply=3,
         human_input_mode="NEVER",
     )
     agents[MANIM_CODING_REVIEW_AGENT_NAME] = manim_coding_review_agent
@@ -128,7 +128,10 @@ def main(user_query: str):
     agents[CODE_EXEC_INSTRUCT_AGENT_NAME] = code_exec_instruct_agent
 
     # work_dir = Path("coding")
-    work_dir = Path("../website/src/assets")
+    
+    work_dir = Path("./temp/")
+    if work_dir.exists():
+        shutil.rmtree(work_dir)
     work_dir.mkdir(exist_ok=True)
 
     
@@ -187,10 +190,10 @@ def main(user_query: str):
     return chat_result
 
 
-# if __name__ == "__main__":
-#     with open("linear_equations_text.txt", "r") as f:
-#         prompt = f.read()
-#         main(prompt)
+if __name__ == "__main__":
+    with open("square_text.txt", "r") as f:
+        prompt = f.read()
+        main(prompt)
 
     # RAG TESTING - DOES NOT WORK
     # manim_docs_agent_prompt = "Assistant who has content retrieval power for the reference documentation of Manim Community Edition v0.18.1."

@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Union
 from fastapi import FastAPI, File, UploadFile,  Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +22,9 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+
+VIDEO_DIR = Path("temp")
+
 # Put APIs first before the html serving
 
 @app.post("/new_anim")
@@ -38,6 +42,9 @@ async def new_animation(request: Request, file: UploadFile):
     return {"filename" : file.filename}
     # return JSONResponse(content={"status": "success", "message": "File processed"})
     # return {"message": "Processing started"}
+    
+
+app.mount("/temp", StaticFiles(directory=str(VIDEO_DIR)), name="videos")
 
 
 # Mount the entire static site directory

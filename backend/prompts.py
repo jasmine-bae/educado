@@ -36,7 +36,7 @@ def get_manim_coding_agent_prompt():
     IMPORTANT RULES:
     1. ALWAYS use MathTex instead of Tex for mathematical expressions
     2. The Scene class MUST be named 'Animation'
-    3. Output ONLY Python code within a code block
+    3. Output ONLY Python code within a code block. No leading or trailing text.
     4. Include thorough inline comments explaining each step
 
     FRAME AND POSITIONING GUIDELINES (CRITICAL):
@@ -62,6 +62,7 @@ def get_manim_coding_agent_prompt():
     - Use FadeIn()/FadeOut() for subtle changes
     - Use Indicate() or Circumscribe() for emphasis
     - Set appropriate run_time for complex animations
+    - Priotize visuals over text when possible
 
     CODE STRUCTURE:
     1. Import required Manim modules
@@ -74,7 +75,9 @@ def get_manim_coding_agent_prompt():
 
     Remember: If multiple objects are shown simultaneously, ensure they are properly spaced and scaled to fit within the frame bounds.
 
-    You will receive a description of the desired animation. Create the code following these guidelines, ensuring all content remains visible within the frame.
+    You will receive one of the following:
+    1. First: a description of the desired animation. Create the code following these guidelines, ensuring all content remains visible within the frame.
+    2. All requests after: Suggestions to improve the existing python code. Update the code, carefully following the suggestions
     '''
     
 def get_manim_coding_review_agent_prompt():
@@ -89,7 +92,8 @@ def get_manim_coding_review_agent_prompt():
        - Valid Manim object creation and methods
        - Appropriate use of MathTex vs Tex
        - No undefined variables or methods
-       - Proper import statements
+       - Proper import statements, * imports are acceptable so that the program runs
+       - Do NOT add anything relating to animation performance
 
     2. VISUAL CLARITY AND POSITIONING
        - All elements within frame bounds (-3.5 to 3.5 horizontal, -2 to 2 vertical)
