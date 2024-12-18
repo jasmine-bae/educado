@@ -33,17 +33,21 @@ window.addEventListener("DOMContentLoaded", ()=>{
         
             const result = await response.json();
             console.log(result);
+
+            document.getElementById("loadingSymbol").style.display = "none";
+            document.getElementById("animation_video").src = "/assets/media/videos/animation/480p15/Animation.mp4";
+            document.getElementById("video_player").style.display = "block";
+
         } catch (error) {
             console.error("Error during fetch:", error.message);
+            document.getElementById("reset_from_button").style.display = "block";
         } finally {
-            document.getElementById("loadingSymbol").style.display = "none";
+            
+            document.getElementById("reset_from_button").style.display = "block";
         }
         
 
-        document.getElementById("animation_video").src = "/assets/media/videos/animation/480p15/Animation.mp4";
-        document.getElementById("video_player").style.display = "block";
-
-        document.getElementById("reset_from_button").style.display = "block";
+        
 
     })
 
