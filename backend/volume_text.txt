@@ -1,0 +1,39 @@
+The volume of an object is the amount of space occupied by the object or shape, which is in three-dimensional space. It is usually measured in terms of cubic units. In other words, the volume of any object or container is the capacity of the container to hold the amount of fluid (gas or liquid). The volume of three-dimensional mathematical shapes like cube, cuboid, cylinder, prism and cone etc. can be easily calculated by using arithmetic formulas. Whereas, to find the volumes of complicated shapes, one can use integral calculus.
+
+For example, the volume of the cylinder can be measured using the formula πr2h, where r = d⁄2.
+
+r = Radius of the circular base
+d = Diameter of the circular base
+h = Height of the cylinder
+Volume Formula of Cylinder
+
+Volume Formulas of Various Geometric Figures
+Some of the formulas to find out volumes of basic shapes are –
+
+Shapes	Volume Formula	Variables
+Rectangular Solid or Cuboid	V = l × w × h	l = Length
+w = Width
+
+h = Height
+
+Cube	V = a3	a = Length of edge or side
+Cylinder	V = πr2h	r = Radius of the circular base
+h = Height
+
+Prism	V = B × h	B = Area of base, (B = side2 or length.breadth)
+h = Height
+
+Sphere	V = (4⁄3)πr3	r = Radius of the sphere
+Pyramid	V = (1⁄3) × B × h	B = Area of the base,
+h = Height of the pyramid
+
+Right Circular Cone	V = (1⁄3)πr2h	r = Radius of the circular base
+h = Height
+
+Square or Rectangular Pyramid	V = (1⁄3) × l × w × h	l = Length of the base,
+w = Width of base,
+
+h = Height (base to tip)
+
+Ellipsoid	V = (4⁄3) × π × a × b × c	a, b, c = semi-axes of an ellipsoid
+Tetrahedron	V = a3⁄ (6 √2)	a = Length of the edge

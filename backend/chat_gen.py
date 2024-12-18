@@ -38,8 +38,10 @@ def state_transition(
     elif last_speaker is agents[MANIM_CODING_REVIEW_AGENT_NAME]:
         if "REVIEW DONE" in messages[-1]["content"]:
             return agents[CODE_EXEC_INSTRUCT_AGENT_NAME]
-        else:
+        elif "CHANGES NEEDED" in messages[-1]["content"]:
             return agents[MANIM_CODING_AGENT_NAME]
+        else:
+            return agents[CODE_EXEC_INSTRUCT_AGENT_NAME]
     elif last_speaker is agents[CODE_EXEC_INSTRUCT_AGENT_NAME]:
         return agents[CODE_EXEC_AGENT_NAME]
     elif last_speaker is agents[CODE_EXEC_AGENT_NAME]:
