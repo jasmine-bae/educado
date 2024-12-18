@@ -1,0 +1,1 @@
+manim -pql animation.py SimilarTriangles

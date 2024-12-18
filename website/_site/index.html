@@ -20,6 +20,7 @@
         <hr />
         <article>
           <h3>Upload a lesson plan or textbook chapter here:</h3>
+          <mark>Note: Please upload a .txt file containing only the text of the content.</mark>
           <form id="file_upload_form">
           
               <input type="file" id="file_upload">
@@ -27,7 +28,14 @@
           </form>
           <div id="successMessage" style="display: none;">
             <p>File uploaded successfully!</p>
+            
           </div>
+
+          <div id="loadingSymbol" style="display: none;">
+            <span aria-busy="true">Generating your video...</span>
+          </div>
+
+          
         </article>
         
 
@@ -35,10 +43,13 @@
         
         <div id="video_player" style="display: none;">
           <video id="animation_video" controls>
-            <source src="assets/SquareAndSquareRoots.mp4" type="video/mp4">
+            <source src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>
+          <hr />
         </div>
+
+        
 
         <div id="reset_from_button" style="display: none;">
           <button id="reset_button"> Generate another video </button>

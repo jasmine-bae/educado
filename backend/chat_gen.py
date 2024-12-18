@@ -2,11 +2,8 @@ from typing import *
 from autogen import *
 from autogen import Agent
 from autogen import ConversableAgent
-from autogen import AssistantAgent
-from autogen.agentchat.contrib.retrieve_user_proxy_agent import RetrieveUserProxyAgent
 import sys
 import os
-import math
 from pathlib import Path
 from autogen.coding import CodeBlock, LocalCommandLineCodeExecutor
 import prompts
@@ -29,6 +26,7 @@ def state_transition(
     groupchat: GroupChat                    
 ) -> Union[Agent, Literal['auto', 'manual', 'random' 'round_robin'], None]:
     messages = groupchat.messages
+
     
     if last_speaker is agents[INIT_AGENT_NAME]:
         return agents[TEXTBOOK_AGENT_NAME]
@@ -96,7 +94,8 @@ def main(user_query: str):
     manim_coding_agent = ConversableAgent(
         MANIM_CODING_AGENT_NAME,
         system_message=manim_coding_agent_prompt,
-        llm_config=claude_llm_config,
+        # llm_config=claude_llm_config,
+        llm_config = llm_config,
         code_execution_config=False,
         max_consecutive_auto_reply=3,
         human_input_mode="NEVER",
@@ -107,7 +106,8 @@ def main(user_query: str):
     manim_coding_review_agent = ConversableAgent(
         MANIM_CODING_REVIEW_AGENT_NAME,
         system_message=manim_coding_review_agent_prompt,
-        llm_config=claude_llm_config,
+        # llm_config=claude_llm_config,
+        llm_config = llm_config,
         code_execution_config=False,
         max_consecutive_auto_reply=3,
         human_input_mode="NEVER",
@@ -123,7 +123,8 @@ def main(user_query: str):
     )
     agents[CODE_EXEC_INSTRUCT_AGENT_NAME] = code_exec_instruct_agent
 
-    work_dir = Path("coding")
+    # work_dir = Path("coding")
+    work_dir = Path("../website/src/assets")
     work_dir.mkdir(exist_ok=True)
 
     
@@ -134,7 +135,7 @@ def main(user_query: str):
                 f.write(code)
             return filepath
         
-        @override
+        # @override
         def execute_code_blocks(self, code_blocks: List[CodeBlock]):
             # Create fixed files for each block
             for i, block in enumerate(code_blocks):
@@ -161,7 +162,7 @@ def main(user_query: str):
             "executor": executor,
             "last_n_messages": 1,
         },
-        human_input_mode="ALWAYS",
+        human_input_mode="NEVER",
     )
     agents[CODE_EXEC_AGENT_NAME] = code_exec_agent
         
@@ -173,7 +174,7 @@ def main(user_query: str):
         speaker_selection_method=state_transition
     )
     manager = GroupChatManager(groupchat=groupchat, llm_config=llm_config)
-    
+
     chat_result = init_agent.initiate_chat(
         manager,
         message="Here is the textbook text:\n" + user_query + "Please give a description of one detail that can be animated."
@@ -181,10 +182,11 @@ def main(user_query: str):
     
     return chat_result
 
-if __name__ == "__main__":
-    with open("linear_equations_text.txt", "r") as f:
-        prompt = f.read()
-        main(prompt)
+
+# if __name__ == "__main__":
+#     with open("linear_equations_text.txt", "r") as f:
+#         prompt = f.read()
+#         main(prompt)
 
     # RAG TESTING - DOES NOT WORK
     # manim_docs_agent_prompt = "Assistant who has content retrieval power for the reference documentation of Manim Community Edition v0.18.1."
