@@ -45,9 +45,9 @@ def state_transition(
     elif last_speaker is agents[CODE_EXEC_AGENT_NAME]:
         # Logic to go back to coding step if execution fails for some reason
         # Will probably need a max_retries so it doesnt run infinitely
-        if messages[-1]["content"] == "exitcode: 1":
+        if "exitcode: 1" in messages[-1]["content"]:
         #     # runs code -> execution failed --> go back to code generation agent
-            return agents[MANIM_CODING_AGENT_NAME]
+            return agents[MANIM_CODING_REVIEW_AGENT_NAME]
         # else:
         #     # runs code -> execution success -> DONE
         return None

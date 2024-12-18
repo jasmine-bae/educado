@@ -6,10 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import chat_gen
 from fastapi.responses import JSONResponse
-import logging
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
 
 #ADD Import statements from the other files here
 app = FastAPI()
@@ -30,8 +27,6 @@ VIDEO_DIR = Path("temp")
 @app.post("/new_anim")
 async def new_animation(request: Request, file: UploadFile):
     
-    headers = request.headers
-    logging.info(f"Request Headers: {dict(headers)}")
     # print (file.filename)
     with open(file.filename, "r") as f:
         prompt = f.read()
