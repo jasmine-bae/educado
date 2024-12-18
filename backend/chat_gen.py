@@ -62,14 +62,15 @@ def main(user_query: str):
     
     # Claude - only uses claude if the claude api key is set in env
     claude_api_key = os.environ.get("CLAUDE_API_KEY")
-    if claude_llm_config == "":
+    claude_llm_config = None
+    if claude_api_key is None:
         claude_llm_config = llm_config
     else:
         claude_llm_config = {
             "config_list": [
                 {
                     "model": "claude-3-5-sonnet-20241022",
-                    "api_key": claude_llm_config,
+                    "api_key": claude_api_key,
                     "api_type": "anthropic",
                 }
             ]
