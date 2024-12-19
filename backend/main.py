@@ -31,7 +31,6 @@ async def new_animation(request: Request, file: UploadFile):
     content = await file.read()
     prompt = content.decode('utf-8')
     chat_gen.main(prompt)
-        # return StreamingResponse(chat_gen.main(prompt), media_type="text/plain")
 
     # # video_path = result #change this
     return {"filename" : file.filename}
