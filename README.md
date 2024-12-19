@@ -3,7 +3,7 @@
 Educado is an LLM agent powered application designed to turn textbook material, educational blog posts, worksheets, and more into animated lessons/learning material. Currently, we only support mathematics lesson / textbook text input into animated math videos. We utilize a finite-state-machine to power agentic group chat to create directions, generate/review Python code powered by the Manim Community library, and execute rendering of the video.
 
 ## Installation
-Create a python virtual environment named `manim_venv` with requirements.txt.
+Create a python (3.12.4) virtual environment named `manim_venv` with requirements.txt.
 ```
 python -m venv manim_venv
 source manim_venv/bin/activate
