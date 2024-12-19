@@ -28,9 +28,9 @@ VIDEO_DIR = Path("temp")
 async def new_animation(request: Request, file: UploadFile):
     
     # print (file.filename)
-    with open(file.filename, "r") as f:
-        prompt = f.read()
-        chat_gen.main(prompt)
+    content = await file.read()
+    prompt = content.decode('utf-8')
+    chat_gen.main(prompt)
         # return StreamingResponse(chat_gen.main(prompt), media_type="text/plain")
 
     # # video_path = result #change this

@@ -3,12 +3,10 @@ from typing import *
 from autogen import *
 from autogen import Agent
 from autogen import ConversableAgent
-import sys
 import os
 from pathlib import Path
 from autogen.coding import CodeBlock, LocalCommandLineCodeExecutor
 import prompts
-import tempfile
 
 # Consts
 INIT_AGENT_NAME = 'init_agent'
@@ -24,7 +22,7 @@ agents = {}
 
 def state_transition(
     last_speaker: Agent, 
-    groupchat: GroupChat                    
+    groupchat: GroupChat                  
 ) -> Union[Agent, Literal['auto', 'manual', 'random' 'round_robin'], None]:
     messages = groupchat.messages
 
@@ -47,11 +45,9 @@ def state_transition(
     elif last_speaker is agents[CODE_EXEC_AGENT_NAME]:
         # Logic to go back to coding step if execution fails for some reason
         # Will probably need a max_retries so it doesnt run infinitely
-        if "exitcode: 1" in messages[-1]["content"]:
-        #     # runs code -> execution failed --> go back to code generation agent
+        if "exitcode: 1" in messages[-1]["content"] and not "exitcode: 124" in messages[-1]["content"]:
+            # runs code -> execution failed --> go back to code generation agent
             return agents[MANIM_CODING_REVIEW_AGENT_NAME]
-        # else:
-        #     # runs code -> execution success -> DONE
         return None
 
 
@@ -104,7 +100,7 @@ def main(user_query: str):
         system_message=manim_coding_agent_prompt,
         llm_config=claude_llm_config,
         code_execution_config=False,
-        # max_consecutive_auto_reply=3,
+        max_consecutive_auto_reply=10,
         human_input_mode="NEVER",
     )
     agents[MANIM_CODING_AGENT_NAME] = manim_coding_agent
@@ -115,7 +111,7 @@ def main(user_query: str):
         system_message=manim_coding_review_agent_prompt,
         llm_config=claude_llm_config,
         code_execution_config=False,
-        # max_consecutive_auto_reply=3,
+        max_consecutive_auto_reply=10,
         human_input_mode="NEVER",
     )
     agents[MANIM_CODING_REVIEW_AGENT_NAME] = manim_coding_review_agent
@@ -128,8 +124,6 @@ def main(user_query: str):
         human_input_mode="NEVER",
     )
     agents[CODE_EXEC_INSTRUCT_AGENT_NAME] = code_exec_instruct_agent
-
-    # work_dir = Path("coding")
     
     work_dir = Path("./temp/")
     if work_dir.exists():
@@ -192,10 +186,10 @@ def main(user_query: str):
     return chat_result
 
 
-if __name__ == "__main__":
-    with open("square_text.txt", "r") as f:
-        prompt = f.read()
-        main(prompt)
+# if __name__ == "__main__":
+#     with open("square_text.txt", "r") as f:
+#         prompt = f.read()
+#         main(prompt)
 
     # RAG TESTING - DOES NOT WORK
     # manim_docs_agent_prompt = "Assistant who has content retrieval power for the reference documentation of Manim Community Edition v0.18.1."
