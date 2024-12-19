@@ -76,3 +76,8 @@ Access the website at `localhost:8000`
 1. Upload a `.txt` file with the math instruction lesson.
 2. Click generate and wait for the generation agent to run. You can monitor the progress on your terminal running the `fastapi` server
 3. Once the process is complete, the video will display on the web page. You can right click and save the video if you want to keep the result!
+
+## Tips
+
+* You can use the `.txt` files in the examples directory as input files.
+* The text for your prompt should be a shorter focused section in a textbook or lesson plan. If there are too many varying topics the output results may be inconsistent. 
